@@ -1,0 +1,25 @@
+version: '3.7'
+
+services:
+  
+  mysql-db:
+    image: mysql:latest
+    ports: 
+      - 3300:3300
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysqlPassword
+      - MYSQL_USER=mysqlUser
+      - MYSQL_PASSWORD=mysqlPassword
+      - MYSQL_DATABASE=physique
+    volumes: 
+      - "./ddl.sql:/docker-entrypoint-initdb.d/PROJECTV2.ddl"
+    command: --log-bin-trust-function-creators=1
+  adminer:
+    image: adminer:latest
+    ports:
+      - 8000:8080 
+    depends_on:
+      - mysql-db
+    environment:
+      ADMINER_DEFAULT_SERVER: mysql-db
+    

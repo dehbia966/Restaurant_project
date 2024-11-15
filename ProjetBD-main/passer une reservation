@@ -1,0 +1,24 @@
+import mysql.connector 
+import os
+ 
+
+def passer_reservation (connection,ID_RESERVATION):
+    cursorReservation = connection.cursor()
+# Demander les détails de la réservation à l'utilisateur
+
+    date = input("Date de la réservation (format: YYYY-MM-DD): ")
+    nom_personne = input("Nom de la personne effectuant la réservation: ")
+    num_tel = input("Numéro de téléphone: ")
+    nombre_personne = int(input("Nombre total de personnes: "))
+    enfant = int(input("Nombre d'enfants: "))
+    animaux = int(input("Nombre d'animaux: "))
+    heure_arrive = input("Heure d'arrivée (format: HH:MM:SS): ")
+    anniversaire = input("Anniversaire (oui/non): ")
+# creer une requete SQL pour inserer la reservation 
+    query = "INSERT INTO RESERVATION (DATE, NOM_PERSONNE,NUM_TEL, NOMBRE_PERSONNE, ENFANT, ANIMAUX , HEURE_ARRIVE, ANNIVERSAIRE, ID_TIERS ) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)"
+    values = (date , nom_personne , num_tel , nombre_personne , enfant , animaux , heure_arrive , anniversaire)
+
+#Execution de la requete 
+    cursorReservation.execute(query, values)    
+    print("la reservation est faite avec succes ")
+    
